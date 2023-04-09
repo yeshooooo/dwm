@@ -67,16 +67,20 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 
 // 将默认终端和浮动窗口都改为alacritty
+// 经实验，这里浮动窗口改为alacritty暂时有问题，所以还是用st
+//static char dmenumon[2] = "0";
 static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "/usr/bin/alacritty", "-t", scratchpadname, "-g", "120x34", NULL };
+//static const char *scratchpadcmd[] = { "/usr/bin/alacritty", "-t", scratchpadname, "-g", "120x34", NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+
  
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 
-	{ MODKEY,                       XK_s,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,             		XK_s,      togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },

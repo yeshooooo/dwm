@@ -1815,6 +1815,7 @@ sigterm(int unused)
 void
 spawn(const Arg *arg)
 {
+	selmon->tagset[selmon->seltags] &= ~scratchtag;
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
