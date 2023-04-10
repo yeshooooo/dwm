@@ -84,7 +84,9 @@
 /* enums */
 enum { Manager, Xembed, XembedInfo, XLast }; /* Xembed atoms */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+//enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeStatus, SchemeTagsSel, SchemeTagsNorm, SchemeInfoSel, SchemeInfoNorm }; /* color schemes */
+
 enum { NetSupported, NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayVisual,
 	   NetWMName, NetWMState, NetWMFullscreen, NetActiveWindow, NetWMWindowType, NetWMWindowTypeDock,
 	   NetSystemTrayOrientationHorz, NetWMWindowTypeDialog, NetClientList, NetWMCheck, NetLast }; /* EWMH atoms */
@@ -905,7 +907,8 @@ drawbar(Monitor *m)
 		return;
 	if (showsystray && m == systraytomon(m)) {
 		stw = getsystraywidth();
-		drw_setscheme(drw, scheme[SchemeNorm]);
+		//drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_setscheme(drw, scheme[SchemeStatus]); //colorbar设置
 		drw_rect(drw, m->ww - stw, 0, stw, bh, 1, 1);
 	}
 
@@ -913,7 +916,8 @@ drawbar(Monitor *m)
 	if (m == selmon || 1) { /* status is only drawn on selected monitor */
 
 		char *text, *s, ch;
-		drw_setscheme(drw, scheme[SchemeNorm]);
+		//drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_setscheme(drw, scheme[SchemeTagsNorm]);
 
 		x = 0;
 		for (text = s = stext; *s; s++) {
@@ -946,7 +950,7 @@ drawbar(Monitor *m)
 		if(!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
 			continue;
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeTagsSel : SchemeTagsNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		x += w;
 	}
@@ -984,7 +988,7 @@ drawbar(Monitor *m)
 					continue;
 				tw = MIN(m->sel == c ? w : mw, TEXTW(c->name));
 
-				drw_setscheme(drw, scheme[m == selmon && m->sel == c ? SchemeSel : SchemeNorm]);
+				drw_setscheme(drw, scheme[m == selmon && m->sel == c ? SchemeInfoSel : SchemeInfoNorm]);
 				if (tw > lrpad / 2)
 					drw_text(drw, x, 0, tw, bh, lrpad / 2, c->name, 0);
 				if (c->isfloating)
@@ -993,7 +997,7 @@ drawbar(Monitor *m)
 				w -= tw;
 			}
 		}
-		drw_setscheme(drw, scheme[SchemeNorm]);
+		drw_setscheme(drw, scheme[SchemeInfoNorm]);
 		drw_rect(drw, x, 0, w, bh, 1, 1);
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
