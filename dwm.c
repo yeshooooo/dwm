@@ -486,7 +486,7 @@ buttonpress(XEvent *e)
 			click = ClkLtSymbol;
 			goto execute_handler;
 		}
-		x += TEXT(selmon->ltsymbol);
+		x += TEXTW(selmon->ltsymbol);
 
 		for(i = 0; i < LENGTH(launchers); i++) {
 			x += TEXTW(launchers[i].name);
