@@ -1,3 +1,4 @@
+backup my master barnch for future errors
 # Install fonts
 ```shell
 sudo pcaman -S nerd-fonts-complete
@@ -10,3 +11,5 @@ npm install -g alacritty-themes
 ```
 
 My alacritty theme is Darcula
+
+
