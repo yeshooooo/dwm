@@ -101,9 +101,11 @@ static const char *flameshotcmd[] = { "flameshot", "gui", NULL };
 // 经实验，这里浮动窗口改为alacritty暂时有问题，所以还是用st
 //static char dmenumon[2] = "0";
 static const char *termcmd[]  = { "/usr/bin/alacritty", NULL };
-static const char scratchpadname[] = "scratchpad";
+static const char scratchpadname[] = "alacritty";
+//static const char scratchpadname[] = "scratchpad";
 //static const char *scratchpadcmd[] = { "/usr/bin/alacritty", "-t", scratchpadname, "-g", "120x34", NULL };
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+//static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+static const char *scratchpadcmd[] = { "/usr/bin/alacritty", "--title", scratchpadname, NULL };
 
  
 static const Key keys[] = {
